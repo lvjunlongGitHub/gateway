@@ -36,7 +36,7 @@ logging:
 
 # 跨域配置
 service:
-  corsOrigin: web.yushi.com
+  corsOrigin: web.ljl.com
 
 # mysql配置
 sharding:
@@ -46,7 +46,7 @@ sharding:
       master0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://192.168.55.34:3318/eusdk
+        url: jdbc:mysql://192.168.55.34:3318/eusdk?serverTimezone=Asia/Shanghai
         username: admin
         password: yushi@123
         maxActive: 20
@@ -55,7 +55,7 @@ sharding:
       slave0:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://192.168.55.34:3318/eusdk
+        url: jdbc:mysql://192.168.55.34:3318/eusdk?serverTimezone=Asia/Shanghai
         username: admin
         password: yushi@123
         maxActive: 20
