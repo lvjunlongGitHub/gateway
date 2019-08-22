@@ -1,0 +1,144 @@
+
+
+# server设置 :包括http， tomcat, cookie
+server:
+  port: 8086
+  connection-timeout: 1000ms
+  compression.enabled: true
+
+  tomcat:
+    max-threads: 1000
+    max-connections: 10000
+    min-spare-threads: 5
+    uri-encoding: UTF-8
+
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        domain: /
+
+# feign : 使用okHttp做为http client, 读写
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 10000
+
+# log4j配置
+logging:
+  config: classpath:log4j2.xml
+
+# 跨域配置
+service:
+  corsOrigin: web.yushi.com
+
+# mysql配置
+sharding:
+  jdbc:
+    datasource:
+      names: master0,slave0
+      master0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://192.168.55.34:3318/eusdk
+        username: admin
+        password: yushi@123
+        maxActive: 20
+        testOnBorrow: true
+        validationQuery: select 1
+      slave0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://192.168.55.34:3318/eusdk
+        username: admin
+        password: yushi@123
+        maxActive: 20
+        testOnBorrow: true
+        validationQuery: select 1
+    config:
+      masterslave:
+        master-data-source-name: master0
+        slave-data-source-names: slave0
+        load-balance-algorithm-type: random
+        name: ms
+
+# springboot热部署配置、mq、es、redis
+spring:
+  application:
+    name: gateway
+  devtools:
+    restart:
+      enabled: false
+  #  rocketmq:
+  #    namesrvAddr: 192.168.52.3:9876;192.168.52.4:9876
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  main:
+    allow-bean-definition-overriding: true
+  redis:
+    host: 192.168.52.60
+    port: 6379
+    password: yushi@123
+    timeout: 10000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1s
+        max-idle: 8
+        min-idle: 0
+
+# elasticsearch配置
+#elasticsearch:
+#  clustername: dev-wogame
+#  node1:
+#    name: node-1
+#    address: 192.168.52.111
+#    port: 9301
+#  node2:
+#    name: node-2
+#    address: 192.168.52.111
+#    port: 9302
+#  node3:
+#    name: node-3
+#    address: 192.168.52.111
+#    port: 9303
+
+# mybatis插件配置
+mybatis-plus:
+  mapper-locations: 'classpath:/mapper/**/*Mapper.xml'
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.ljl.entity
+  #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+  global-config:
+    db-config:
+      id-type: input
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+# 程序管理endpoint
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      #2.0默认是 /actuator  可以通过这个属性值修改
+      base-path: /actuator
+    #显示健康具体信息  默认不会显示详细信息
+    health:
+      show-details: always
+
+# 服务地址
+springdemo:
+  host: http://127.0.0.1:8085
+
