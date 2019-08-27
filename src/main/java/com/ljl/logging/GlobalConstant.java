@@ -25,7 +25,7 @@ public class GlobalConstant {
 
     static final String CON_QUOTE = "`";
 
-    static ThreadLocal<AccessLog> accessLog= new ThreadLocal<AccessLog>();
+    public static ThreadLocal<AccessLog> accessLog= new ThreadLocal<AccessLog>();
 
     public static ThreadLocal<SqlAccessLog> sqlLog= new ThreadLocal<SqlAccessLog>();
 

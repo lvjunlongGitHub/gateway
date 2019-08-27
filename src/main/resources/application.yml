@@ -142,3 +142,9 @@ management:
 springdemo:
   host: http://127.0.0.1:8085
 
+
+gateway:
+  cookie:
+    domain:
+    maxAge: 7200
+
